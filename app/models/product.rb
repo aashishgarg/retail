@@ -24,6 +24,7 @@ class Product < ApplicationRecord
         variant_name << name
         pair.each{|attr| variant_name << " #{attr.product_attribute.name}:#{attr.name}"}
         variant = variants.create(name: variant_name, sku: 'sku1')
+        variant.images.attach(io: File.open('/home/ashish/workspace/retail/app/assets/images/products/sample.png'), filename: variant_name+'.png')
         variant.attribute_choices << pair
       end
     else
