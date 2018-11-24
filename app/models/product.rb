@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   # --- Callbacks --- #
   after_commit :create_product_variants
 
+  # --- Instance methods --- #
   def type
     product_class.name
   end
@@ -14,16 +15,20 @@ class Product < ApplicationRecord
   private
 
   def create_product_variants
-    collection = product_attributes.collect { |x| x.attribute_choices }
-    collection.collect!(&:to_a)
-    pairs = collection[0].product(*collection[1..-1])
-    pairs.each do |pair|
-      variant_name = ''
-      variant_name << name
-      pair.each{|attr| variant_name << " #{attr.product_attribute.name}:#{attr.name}"}
-      variant = variants.create(name: variant_name, sku: 'sku1')
-      variant.images.attach(io: File.open('/home/ashish/workspace/retail/app/assets/images/products/sample.png'), filename: variant_name+'.png')
-      variant.attribute_choices << pair
+    if product_class.product_attributes.present?
+      collection = product_attributes.collect { |x| x.attribute_choices }
+      collection.collect!(&:to_a)
+      pairs = collection[0].product(*collection[1..-1])
+      pairs.each do |pair|
+        variant_name = ''
+        variant_name << name
+        pair.each{|attr| variant_name << " #{attr.product_attribute.name}:#{attr.name}"}
+        variant = variants.create(name: variant_name, sku: 'sku1')
+        variant.images.attach(io: File.open('/home/ashish/workspace/retail/app/assets/images/products/sample.png'), filename: variant_name+'.png')
+        variant.attribute_choices << pair
+      end
+    else
+      variants.create(name: name, sku: 'sku2')
     end
   end
 end
