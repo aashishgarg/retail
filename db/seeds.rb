@@ -11,7 +11,7 @@ pc1 = ProductClass.create(name: 'Phone')
 pc2 = ProductClass.create(name: 'Usb')
 
 pc1.product_attributes << [pa1, pa2]
-pc2.product_attributes << [pa1]
+# pc2.product_attributes << [pa1]
 
 # --- Create Products with valid Product Attributes and Variants will be auto created --- #
 p1 = pc1.products.create(name: 'iPhone X')
