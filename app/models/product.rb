@@ -2,7 +2,7 @@ class Product < ApplicationRecord
   # --- Associations ---- #
   belongs_to :product_class, inverse_of: :products, dependent: :destroy
   has_many :product_attributes, through: :product_class
-  has_many :variants, inverse_of: :products, dependent: :destroy
+  has_many :variants, inverse_of: :product, dependent: :destroy
 
   # --- Callbacks --- #
   after_commit :create_product_variants
@@ -23,9 +23,7 @@ class Product < ApplicationRecord
         variant_name = ''
         variant_name << name
         pair.each{|attr| variant_name << " #{attr.product_attribute.name}:#{attr.name}"}
-        variant = variants.create(name: variant_name, sku: 'sku1')
-        variant.images.attach(io: File.open('/home/ashish/workspace/retail/app/assets/images/products/sample.png'), filename: variant_name+'.png')
-        variant.attribute_choices << pair
+        variants.create(name: variant_name, sku: 'sku1', attribute_choices: pair)
       end
     else
       variants.create(name: name, sku: 'sku2')

@@ -4,6 +4,6 @@ class Api::V1::ProductsController < ApplicationController
   end
 
   def show
-    Variant.find_by_id(params[:id])
+    @product =Product.find_by_id(params[:id])
   end
 end
