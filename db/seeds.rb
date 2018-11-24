@@ -2,7 +2,7 @@
 pa1 = ProductAttribute.create(name: 'color')
 pa2 = ProductAttribute.create(name: 'storage')
 
-# --- Create Attributes Choices(different options for product attributes) --- #
+# --- Create Attributes Choices(different options for products attributes) --- #
 pa1.attribute_choices.create([{name: 'red'}, {name: 'green'}, {name: 'blue'}])
 pa2.attribute_choices.create([{name: '16GB'}, {name: '64GB'}, {name: '128GB'}])
 
