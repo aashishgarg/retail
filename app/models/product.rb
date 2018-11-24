@@ -1,11 +1,15 @@
 class Product < ApplicationRecord
   # --- Associations ---- #
   belongs_to :product_class, inverse_of: :products, dependent: :destroy
-  has_and_belongs_to_many :product_attributes
+  has_many :product_attributes, through: :product_class
   has_many :variants, inverse_of: :product, dependent: :destroy
 
   # --- Callbacks --- #
   after_commit :create_product_variants
+
+  def type
+    product_class.name
+  end
 
   private
 

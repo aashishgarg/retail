@@ -10,6 +10,9 @@ pa2.attribute_choices.create([{name: '16GB'}, {name: '64GB'}, {name: '128GB'}])
 pc1 = ProductClass.create(name: 'Phone')
 pc2 = ProductClass.create(name: 'Usb')
 
+pc1.product_attributes << [pa1, pa2]
+pc2.product_attributes << [pa1]
+
 # --- Create Products with valid Product Attributes and Variants will be auto created --- #
-p1 = pc1.products.create(name: 'iPhone X', product_attributes: [pa1, pa2])
-p2 = pc2.products.create(name: 'Usb cable', product_attributes: [pa1])
+p1 = pc1.products.create(name: 'iPhone X')
+p2 = pc2.products.create(name: 'Usb cable')
