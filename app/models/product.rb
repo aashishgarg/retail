@@ -7,6 +7,56 @@ class Product < ApplicationRecord
   # --- Callbacks --- #
   after_commit :create_product_variants
 
+  notify sender: :product_class,
+         receivers: :variants,
+         actions: [:follow, :unfollow, :update],
+         notify_message: :message_method,
+         before_notify: :before_notify_method,
+         after_notify: :after_notify_method,
+         before_delivered: :before_delivered_method,
+         after_delivered: :after_delivered_method,
+         before_read: :before_read_method,
+         after_read: :after_read_method
+
+  # --- Callbacks --- #
+  after_create_commit :create_product_variants
+
+  def follow
+
+  end
+
+  def unfollow
+
+  end
+
+  def message_method
+    'My dd_message'
+  end
+
+  def before_notify_method
+    puts '******BEFOREBEFOREBEFOREBEFORE-Notify**********************************'
+  end
+
+  def after_notify_method
+    puts '******AFTERAFTERAFTERAFTER-Notify**********************************'
+  end
+
+  def before_read_method
+    puts '******BEFOREBEFOREBEFOREBEFORE-Read**********************************'
+  end
+
+  def after_read_method
+    puts '******AFTERAFTERAFTERAFTER-Read**********************************'
+  end
+
+  def before_delivered_method
+    puts '******BEFOREBEFOREBEFOREBEFORE-Delivered**********************************'
+  end
+
+  def after_delivered_method
+    puts '******AFTERAFTERAFTERAFTER-Delivered**********************************'
+  end
+
   # --- Instance methods --- #
   def type
     product_class.name
