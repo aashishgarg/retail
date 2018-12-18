@@ -9,7 +9,7 @@ class Product < ApplicationRecord
 
   notify sender: :product_class,
          receivers: :variants,
-         actions: [:follow, :unfollow, :update],
+         actions: [:follow, :unfollow, :update, :create],
          notify_message: :message_method,
          before_notify: :before_notify_method,
          after_notify: :after_notify_method,
@@ -17,6 +17,18 @@ class Product < ApplicationRecord
          after_delivered: :after_delivered_method,
          before_read: :before_read_method,
          after_read: :after_read_method
+
+  # Step to follow
+  # rails generate simple_notifications:install
+  # rails db:drop db:create db:migrate db:seed
+  # ProductClass.first.products.create(name: 'asadas')
+  # ProductClass.first.products.create(name: 'asadas', message: 'object level custom message')
+  # Products.last.update(name: 'asadas')
+  # Product.last.follow
+  # Product.last.notification.last.deliveries.last.update(is_delivered: true)
+  # Product.last.notification.last.deliveries.last.update(is_read: true)
+  # Product.last.notify(sender: ProductClass.first, receivers: Variants.all)
+  # ProductClass.first.products.create(name: 'asadas', notify: false)
 
   # --- Callbacks --- #
   after_create_commit :create_product_variants
