@@ -23,7 +23,7 @@ class Product < ApplicationRecord
   # rails db:drop db:create db:migrate db:seed
   # ProductClass.first.products.create(name: 'asadas')
   # ProductClass.first.products.create(name: 'asadas', message: 'object level custom message')
-  # Products.last.update(name: 'asadas')
+  # Product.last.update(name: 'asadas')
   # Product.last.follow
   # Product.last.notification.last.deliveries.last.update(is_delivered: true)
   # Product.last.notification.last.deliveries.last.update(is_read: true)

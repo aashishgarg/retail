@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_09_041711) do
+ActiveRecord::Schema.define(version: 2018_12_19_002841) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,20 @@ ActiveRecord::Schema.define(version: 2018_12_09_041711) do
     t.index ["variant_id"], name: "index_attribute_choices_variants_on_variant_id"
   end
 
+  create_table "deliveries", force: :cascade do |t|
+    t.integer "simple_notification_id"
+    t.string "receiver_type"
+    t.integer "receiver_id"
+    t.boolean "is_delivered", default: false
+    t.boolean "is_read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["is_delivered"], name: "index_deliveries_on_is_delivered"
+    t.index ["receiver_type", "receiver_id"], name: "index_deliveries_on_receiver_type_and_receiver_id"
+    t.index ["simple_notification_id"], name: "index_deliveries_on_simple_notification_id"
+    t.index [nil, nil], name: "index_deliveries_on_sender_id_and_sender_type"
+  end
+
   create_table "product_attributes", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -73,6 +87,20 @@ ActiveRecord::Schema.define(version: 2018_12_09_041711) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_class_id"], name: "index_products_on_product_class_id"
+  end
+
+  create_table "simple_notifications", force: :cascade do |t|
+    t.string "sender_type"
+    t.integer "sender_id"
+    t.string "entity_type"
+    t.integer "entity_id"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entity_id", "entity_type"], name: "index_simple_notifications_on_entity_id_and_entity_type"
+    t.index ["entity_type", "entity_id"], name: "index_simple_notifications_on_entity_type_and_entity_id"
+    t.index ["sender_id", "sender_type"], name: "index_simple_notifications_on_sender_id_and_sender_type"
+    t.index ["sender_type", "sender_id"], name: "index_simple_notifications_on_sender_type_and_sender_id"
   end
 
   create_table "users", force: :cascade do |t|
