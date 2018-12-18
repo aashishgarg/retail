@@ -28,7 +28,6 @@ class Product < ApplicationRecord
   # Product.last.notifications.last.deliveries.last.update(is_delivered: true)
   # Product.last.notifications.last.deliveries.last.update(is_read: true)
   # Product.last.notify(sender: ProductClass.first, receivers: Variant.all)
-  # ProductClass.first.products.create(name: 'asadas', notify: false)
 
   # --- Callbacks --- #
   after_create_commit :create_product_variants
