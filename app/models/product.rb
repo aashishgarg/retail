@@ -25,8 +25,8 @@ class Product < ApplicationRecord
   # ProductClass.first.products.create(name: 'asadas', message: 'object level custom message')
   # Product.last.update(name: 'asadas')
   # Product.last.follow
-  # Product.last.notification.last.deliveries.last.update(is_delivered: true)
-  # Product.last.notification.last.deliveries.last.update(is_read: true)
+  # Product.last.notifications.last.deliveries.last.update(is_delivered: true)
+  # Product.last.notifications.last.deliveries.last.update(is_read: true)
   # Product.last.notify(sender: ProductClass.first, receivers: Variants.all)
   # ProductClass.first.products.create(name: 'asadas', notify: false)
 
